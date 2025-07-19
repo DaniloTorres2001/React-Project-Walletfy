@@ -106,13 +106,13 @@ export default function MonthCard({ group }: Props) {
             {/* Resumen mensual */}
             <div className="border-t px-4 py-3 text-sm text-gray-700">
                 <p>
-                    Income: <span className="float-right">${group.ingresos.toFixed(2)}</span>
+                    Ingreso: <span className="float-right">${group.ingresos.toFixed(2)}</span>
                 </p>
                 <p>
-                    Expense: <span className="float-right">${group.egresos.toFixed(2)}</span>
+                    Gasto: <span className="float-right">${group.egresos.toFixed(2)}</span>
                 </p>
                 <p>
-                    Monthly: <span className="float-right">${group.balanceMes.toFixed(2)}</span>
+                    Mensual: <span className="float-right">${group.balanceMes.toFixed(2)}</span>
                 </p>
                 <p className="font-medium">
                     Global: <span className="float-right">${group.balanceGlobal.toFixed(2)}</span>
