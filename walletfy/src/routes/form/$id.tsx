@@ -173,7 +173,7 @@ function RouteComponent() {
 
         {/* Imagen Adjunto */}
         <form.AppField name="adjunto">
-          {(field) => (
+          {() => (
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
                 Imagen adjunta (opcional)
