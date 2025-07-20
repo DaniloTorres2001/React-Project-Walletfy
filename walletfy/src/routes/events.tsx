@@ -11,6 +11,72 @@ import MonthCard from '@/components/MonthCard'
 type SearchParams = {
     tipo?: string
 }
+const eventosPorDefecto: EventType[] = [
+    {
+        id: '1',
+        nombre: 'Sueldo diciembre',
+        descripcion: 'Pago mensual',
+        cantidad: 1500,
+        fecha: '2024-12-05',
+        tipo: 'ingreso',
+    },
+    {
+        id: '2',
+        nombre: 'Arriendo diciembre',
+        descripcion: 'Pago alquiler',
+        cantidad: 500,
+        fecha: '2024-12-10',
+        tipo: 'egreso',
+    },
+    {
+        id: '3',
+        nombre: 'Freelance enero',
+        descripcion: 'Proyecto externo',
+        cantidad: 800,
+        fecha: '2025-01-15',
+        tipo: 'ingreso',
+    },
+    {
+        id: '4',
+        nombre: 'Luz enero',
+        descripcion: 'Servicios básicos',
+        cantidad: 100,
+        fecha: '2025-01-18',
+        tipo: 'egreso',
+    },
+    {
+        id: '5',
+        nombre: 'Sueldo febrero',
+        descripcion: '',
+        cantidad: 1500,
+        fecha: '2025-02-05',
+        tipo: 'ingreso',
+    },
+    {
+        id: '6',
+        nombre: 'Comida febrero',
+        descripcion: 'Supermercado',
+        cantidad: 250,
+        fecha: '2025-02-12',
+        tipo: 'egreso',
+    },
+    {
+        id: '7',
+        nombre: 'Sueldo marzo',
+        descripcion: 'Pago mensual',
+        cantidad: 1500,
+        fecha: '2025-03-05',
+        tipo: 'ingreso',
+    },
+    {
+        id: '8',
+        nombre: 'Netflix marzo',
+        descripcion: 'Suscripción mensual',
+        cantidad: 20,
+        fecha: '2025-03-15',
+        tipo: 'egreso',
+    },
+]
 
 export const Route = createFileRoute('/events')({
     component: EventsPage,
@@ -35,6 +101,7 @@ export const Route = createFileRoute('/events')({
         }
     },
 })
+
 
 function EventsPage() {
     const { } = Route.useSearch()
@@ -75,26 +142,23 @@ function EventsPage() {
     }
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 min-h-screen bg-background text-foreground theme-transition">
             {/* Header superior */}
-            <div className="flex justify-between items-center mb-6">
-                <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium text-gray-700">
+            <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+                <div className="flex items-center gap-3 flex-wrap">
+                    <label className="text-sm font-medium text-muted-foreground">
                         Dinero inicial
                     </label>
                     <input
                         type="number"
                         value={inputBalance}
                         onChange={(e) => setInputBalance(parseFloat(e.target.value))}
-                        className="px-3 py-2 border rounded-md text-sm"
+                        className="px-3 py-2 text-sm rounded-md border border-border bg-card text-card-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                     <button
-                        className="px-4 py-2 bg-violet-500 hover:bg-violet-600 text-white rounded"
+                        className="px-4 py-2 rounded text-white font-semibold bg-violet-500 hover:bg-violet-600 transition"
                         onClick={() => {
-                            localStorage.setItem(
-                                'walletfy_balance_inicial',
-                                inputBalance.toString(),
-                            )
+                            localStorage.setItem('walletfy_balance_inicial', inputBalance.toString())
                             setBalanceInicial(inputBalance)
                         }}
                     >
@@ -104,14 +168,14 @@ function EventsPage() {
 
                 <Link
                     to="/form/$id"
-                    params={{ id: "new" }}
-                    className="bg-gradient-to-r from-purple-500 to-violet-500 text-white font-medium px-4 py-2 rounded shadow hover:brightness-105"
+                    params={{ id: 'new' }}
+                    className="bg-gradient-to-r from-purple-500 to-violet-500 text-white font-medium px-4 py-2 rounded shadow hover:brightness-105 transition"
                 >
                     Add Event
                 </Link>
             </div>
 
-            <p className="text-sm text-gray-500 mb-6">
+            <p className="text-sm text-muted-foreground mb-6">
                 Tienes {totalEventos} eventos en {agrupado.length} meses
             </p>
 
@@ -122,5 +186,6 @@ function EventsPage() {
             </div>
         </div>
     )
+
 }
 

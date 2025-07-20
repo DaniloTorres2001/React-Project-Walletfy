@@ -46,14 +46,14 @@ export default function MonthCard({ group }: Props) {
     }
 
     return (
-        <div className="bg-white rounded shadow-md overflow-hidden border">
-            {/* Título del mes */}
-            <div className="px-4 py-3 border-b text-lg font-semibold text-gray-800">
+        <div className="bg-muted text-foreground border border-border rounded shadow-md overflow-hidden theme-transition">
+
+            <div className="px-4 py-3 border-b border-border text-lg font-semibold">
                 {group.mesAnio}
             </div>
 
             {/* Lista de eventos */}
-            <div className="divide-y">
+            <div className="divide-y divide-border">
                 {group.eventos.map((e) => (
                     <Tooltip
                         key={e.id}
@@ -61,19 +61,17 @@ export default function MonthCard({ group }: Props) {
                         color="gray"
                         position="bottom"
                         transitionProps={{ duration: 200 }}
-                        multiline                                        
+                        multiline
                         label={
                             <div className="flex flex-col items-center gap-2 p-1">
-                                {e.descripcion ? (
-                                    <p className="text-sm text-white text-center">{e.descripcion}</p>
-                                ) : (
-                                    <p className="text-sm text-white italic text-center">Sin descripción</p>
-                                )}
+                                <p className="text-sm text-white text-center">
+                                    {e.descripcion || <i>Sin descripción</i>}
+                                </p>
                                 {e.adjunto && (
                                     <img
                                         src={e.adjunto}
                                         alt="Vista previa"
-                                        className="max-h-32 object-contain rounded border"
+                                        className="max-h-32 object-contain rounded border border-border"
                                     />
                                 )}
                             </div>
@@ -81,11 +79,11 @@ export default function MonthCard({ group }: Props) {
                     >
 
                         <div
-                            className="px-4 py-3 cursor-pointer hover:bg-gray-100 transition"
+                            className="px-4 py-3 cursor-pointer hover:bg-muted/40 transition"
                             onClick={() => handleEventClick(e.id)}
                         >
                             <div className="flex justify-between items-center">
-                                <span className="font-medium text-gray-700">{e.nombre}</span>
+                                <span className="font-medium">{e.nombre}</span>
                                 <span
                                     className={cn(
                                         'font-semibold',
@@ -95,7 +93,7 @@ export default function MonthCard({ group }: Props) {
                                     ${e.cantidad.toFixed(2)}
                                 </span>
                             </div>
-                            <p className="text-xs text-gray-400">
+                            <p className="text-xs text-muted-foreground">
                                 {new Date(e.fecha).toLocaleDateString('en-GB')}
                             </p>
                         </div>
@@ -104,7 +102,7 @@ export default function MonthCard({ group }: Props) {
             </div>
 
             {/* Resumen mensual */}
-            <div className="border-t px-4 py-3 text-sm text-gray-700">
+            <div className="border-t border-border px-4 py-3 text-sm">
                 <p>
                     Ingreso: <span className="float-right">${group.ingresos.toFixed(2)}</span>
                 </p>

@@ -99,15 +99,15 @@ function RouteComponent() {
   const formValues = useStore(form.store, (state) => state.values)
 
   return (
-    <div className="flex justify-center py-10 bg-gray-50 dark:bg-zinc-900 min-h-screen">
+    <div className="flex justify-center py-10 min-h-screen bg-background text-foreground theme-transition">
       <form
-        className="flex flex-col gap-5 p-6 w-full max-w-2xl bg-white dark:bg-zinc-800 rounded shadow-md"
+        className="flex flex-col gap-5 p-6 w-full max-w-2xl bg-card text-card-foreground border border-border rounded shadow-md"
         onSubmit={(e) => {
           e.preventDefault()
           form.handleSubmit()
         }}
       >
-        <h1 className="text-2xl font-bold text-center text-gray-800 dark:text-white">
+        <h1 className="text-2xl font-bold text-center">
           {mode === 'create' ? 'Crear Evento' : 'Editar Evento'}
         </h1>
 
@@ -175,7 +175,7 @@ function RouteComponent() {
         <form.AppField name="adjunto">
           {() => (
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
+              <label className="text-sm font-medium text-muted-foreground">
                 Imagen adjunta (opcional)
               </label>
 
@@ -183,7 +183,7 @@ function RouteComponent() {
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                className="block w-full text-sm text-gray-900 bg-white border border-gray-300 rounded cursor-pointer dark:text-gray-400 dark:bg-zinc-800 dark:border-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+                className="block w-full text-sm text-foreground bg-card border border-border rounded cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
                 onChange={(e) => {
                   const file = e.target.files?.[0]
                   if (file) {
@@ -200,11 +200,11 @@ function RouteComponent() {
 
               {formValues.adjunto ? (
                 <div className="flex flex-col items-center gap-2 mt-4">
-                  <p className="text-xs text-gray-500">Archivo cargado:</p>
+                  <p className="text-xs text-muted-foreground">Archivo cargado:</p>
                   <img
                     src={formValues.adjunto}
                     alt="Previsualización"
-                    className="w-32 h-32 object-contain border rounded bg-white p-2 shadow-md"
+                    className="w-32 h-32 object-contain border border-border rounded bg-card p-2 shadow-md"
                   />
                   <button
                     type="button"
@@ -220,7 +220,7 @@ function RouteComponent() {
                   </button>
                 </div>
               ) : (
-                <p className="text-xs italic text-gray-400 mt-1">
+                <p className="text-xs italic text-muted-foreground mt-1">
                   No se ha cargado ninguna imagen aún.
                 </p>
               )}
@@ -245,4 +245,5 @@ function RouteComponent() {
       </form>
     </div>
   )
+
 }

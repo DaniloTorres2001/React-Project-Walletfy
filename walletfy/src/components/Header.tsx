@@ -4,13 +4,14 @@ import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center px-6 py-4 border-b bg-white dark:bg-zinc-900 dark:border-zinc-700">
+    <header className="flex justify-between items-center px-6 py-4 border-b border-border bg-background theme-transition">
       <Link to="/events" className="hover:opacity-80 transition">
-        <Title order={3} className="text-violet-600 dark:text-violet-300">
+        <Title order={3} className="text-primary">
           Walletfy
         </Title>
       </Link>
       <ThemeToggle />
     </header>
+
   )
 }
