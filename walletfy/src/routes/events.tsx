@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { EventType } from '@/types/event'
 import DataRepo from '@/api/datasource'
 import { agruparEventosPorMes } from '@/lib/event.utils'
-
+import SearchInput from '@/components/search'
 import MonthCard from '@/components/MonthCard'
+import { useDebounce } from '@/hooks/debounce'
 
 type SearchParams = {
     tipo?: string
@@ -39,6 +40,7 @@ export const Route = createFileRoute('/events')({
 function EventsPage() {
     const { } = Route.useSearch()
 
+    // Balance inicial
     const [balanceInicial, setBalanceInicial] = useState(() => {
         const saved = localStorage.getItem('walletfy_balance_inicial')
         return saved ? parseFloat(saved) : 0
@@ -46,6 +48,11 @@ function EventsPage() {
 
     const [inputBalance, setInputBalance] = useState(balanceInicial)
 
+    // Búsqueda
+    const [searchValue, setSearchValue, inputSearch] = useDebounce('', 300)
+    const [searchResults, setSearchResults] = useState<EventType[]>([])
+
+    // Consulta de eventos
     const eventsQuery = useQuery({
         queryKey: ['eventos'],
         queryFn: () => DataRepo.getEvents(),
@@ -53,14 +60,54 @@ function EventsPage() {
         refetchOnWindowFocus: true,
     })
 
-    const agrupado = useMemo(() => {
-        return agruparEventosPorMes(eventsQuery.data || [], balanceInicial)
-    }, [eventsQuery.data, balanceInicial])
+    // Normalización básica para evitar errores con acentos o mayúsculas
+    const normalize = (text: string) =>
+        text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
 
+    // Lógica de filtrado
+    const filterEvents = useCallback(
+        (value: string): EventType[] => {
+            if (!eventsQuery.data || eventsQuery.data.length === 0) {
+                return []
+            }
+
+            if (value.trim() === '') {
+                return eventsQuery.data
+            }
+
+            const texto = normalize(value.trim())
+
+            return eventsQuery.data.filter((e) => {
+                const fecha = new Date(e.fecha)
+                const mes = fecha.toLocaleString('es-ES', { month: 'long' })
+                const año = fecha.getFullYear().toString()
+                const mesAnio = `${mes} ${año}`
+
+                return (
+                    normalize(mes).includes(texto) ||
+                    normalize(año).includes(texto) ||
+                    normalize(mesAnio).includes(texto)
+                )
+            })
+        },
+        [eventsQuery.data]
+    )
+
+    // Aplicar filtro al escribir
+    useEffect(() => {
+        const resultados = filterEvents(searchValue)
+        setSearchResults(resultados)
+    }, [searchValue, filterEvents])
+
+    const agrupado = useMemo(() => {
+        return agruparEventosPorMes(searchResults, balanceInicial)
+    }, [searchResults, balanceInicial])
 
     const totalEventos = useMemo(() => {
         return agrupado.reduce((acc, grupo) => acc + grupo.eventos.length, 0)
     }, [agrupado])
+
+    // --- RENDER ---
 
     if (eventsQuery.isPending) {
         return <div className="p-4">Cargando eventos...</div>
@@ -108,6 +155,10 @@ function EventsPage() {
                 </Link>
             </div>
 
+            <div className="mb-6 max-w-xs">
+                <SearchInput value={inputSearch} onChange={setSearchValue} />
+            </div>
+
             <p className="text-sm text-muted-foreground mb-6">
                 Tienes {totalEventos} eventos en {agrupado.length} meses
             </p>
@@ -119,6 +170,6 @@ function EventsPage() {
             </div>
         </div>
     )
-
 }
+
 
