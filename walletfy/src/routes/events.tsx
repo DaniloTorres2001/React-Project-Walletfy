@@ -11,72 +11,6 @@ import MonthCard from '@/components/MonthCard'
 type SearchParams = {
     tipo?: string
 }
-const eventosPorDefecto: EventType[] = [
-    {
-        id: '1',
-        nombre: 'Sueldo diciembre',
-        descripcion: 'Pago mensual',
-        cantidad: 1500,
-        fecha: '2024-12-05',
-        tipo: 'ingreso',
-    },
-    {
-        id: '2',
-        nombre: 'Arriendo diciembre',
-        descripcion: 'Pago alquiler',
-        cantidad: 500,
-        fecha: '2024-12-10',
-        tipo: 'egreso',
-    },
-    {
-        id: '3',
-        nombre: 'Freelance enero',
-        descripcion: 'Proyecto externo',
-        cantidad: 800,
-        fecha: '2025-01-15',
-        tipo: 'ingreso',
-    },
-    {
-        id: '4',
-        nombre: 'Luz enero',
-        descripcion: 'Servicios básicos',
-        cantidad: 100,
-        fecha: '2025-01-18',
-        tipo: 'egreso',
-    },
-    {
-        id: '5',
-        nombre: 'Sueldo febrero',
-        descripcion: '',
-        cantidad: 1500,
-        fecha: '2025-02-05',
-        tipo: 'ingreso',
-    },
-    {
-        id: '6',
-        nombre: 'Comida febrero',
-        descripcion: 'Supermercado',
-        cantidad: 250,
-        fecha: '2025-02-12',
-        tipo: 'egreso',
-    },
-    {
-        id: '7',
-        nombre: 'Sueldo marzo',
-        descripcion: 'Pago mensual',
-        cantidad: 1500,
-        fecha: '2025-03-05',
-        tipo: 'ingreso',
-    },
-    {
-        id: '8',
-        nombre: 'Netflix marzo',
-        descripcion: 'Suscripción mensual',
-        cantidad: 20,
-        fecha: '2025-03-15',
-        tipo: 'egreso',
-    },
-]
 
 export const Route = createFileRoute('/events')({
     component: EventsPage,
@@ -101,7 +35,6 @@ export const Route = createFileRoute('/events')({
         }
     },
 })
-
 
 function EventsPage() {
     const { } = Route.useSearch()
