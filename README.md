@@ -43,7 +43,7 @@ Walletfy permite a los usuarios:
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/DaniloTorres2001/walletfy.git
+git clone https://github.com/DaniloTorres2001/React-Project-Walletfy.git
 cd walletfy
 npm install
 npm run dev
