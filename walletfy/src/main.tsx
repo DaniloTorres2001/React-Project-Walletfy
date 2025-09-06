@@ -21,6 +21,10 @@ import '@mantine/notifications/styles.css'
 
 import reportWebVitals from './reportWebVitals.ts'
 
+import { initDefaultEventsIfNeeded } from './initDefaultEvents.ts'
+
+initDefaultEventsIfNeeded()
+
 // Create a new router instance
 const router = createRouter({
   routeTree,
@@ -45,19 +49,19 @@ const rootElement = document.getElementById('app')
 if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
-  <StrictMode>
-    <ReduxProvider store={store}>
-      <TanstackQuery.Provider>
-        <Mantine.Provider>
-          <ThemeWrapper>
-            <Notifications position="top-right" />
-            <RouterProvider router={router} />
-          </ThemeWrapper>
-        </Mantine.Provider>
-      </TanstackQuery.Provider>
-    </ReduxProvider>
-  </StrictMode>,
-)
+    <StrictMode>
+      <ReduxProvider store={store}>
+        <TanstackQuery.Provider>
+          <Mantine.Provider>
+            <ThemeWrapper>
+              <Notifications position="top-right" />
+              <RouterProvider router={router} />
+            </ThemeWrapper>
+          </Mantine.Provider>
+        </TanstackQuery.Provider>
+      </ReduxProvider>
+    </StrictMode>,
+  )
 
 }
 
