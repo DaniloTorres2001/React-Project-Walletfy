@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import * as webllm from '@mlc-ai/web-llm'
 import type { EventType } from '@/types/event'
 import DataRepo from '@/api/datasource'
