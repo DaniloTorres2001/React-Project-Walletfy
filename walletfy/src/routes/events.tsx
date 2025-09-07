@@ -8,6 +8,7 @@ import { agruparEventosPorMes } from '@/lib/event.utils'
 import SearchInput from '@/components/search'
 import MonthCard from '@/components/MonthCard'
 import { useDebounce } from '@/hooks/debounce'
+import AsistenteLLM from '@/lib/asistenteLLM'
 
 type SearchParams = {
     tipo?: string
@@ -168,6 +169,8 @@ function EventsPage() {
                     <MonthCard key={grupo.mesAnio} group={grupo} />
                 ))}
             </div>
+            <AsistenteLLM />
+
         </div>
     )
 }

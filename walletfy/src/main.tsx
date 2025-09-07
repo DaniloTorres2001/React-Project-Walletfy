@@ -23,6 +23,11 @@ import reportWebVitals from './reportWebVitals.ts'
 
 import { initDefaultEventsIfNeeded } from './initDefaultEvents.ts'
 
+
+// Dentro del return, después de la sección de eventos agrupados
+
+
+
 initDefaultEventsIfNeeded()
 
 // Create a new router instance
