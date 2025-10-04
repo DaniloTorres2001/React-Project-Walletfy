@@ -7,6 +7,8 @@
 > 🔐 **Privacidad**: Todo el análisis del asistente ocurre *on‑device* vía WebGPU (si está disponible).
 
 ---
+## 🔗 Demo en producción
+**URL:** https://react-project-walletfy.pages.dev/events
 
 ## 1) 🧠 Descripción
 
